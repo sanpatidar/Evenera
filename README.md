@@ -149,7 +149,7 @@ We welcome contributions!
 ## 📧 Support
 
 For questions or help:
-- 📩 Email: atishaysodhiya5845@gmail.com  
+- 📩 Email: sanskarpatidar276@gmail.com  
 - 🌐 Visit: [evenera5845.fwh.is] 
 
 ---
