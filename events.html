@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - Bharat Event Planner</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563EB',
+            'primary-hover': '#1D4ED8',
+            secondary: '#059669',
+            'secondary-hover': '#047857',
+            accent: '#F59E0B',
+            'accent-hover': '#D97706',
+            neutral: {
+              50: '#F9FAFB',
+              100: '#F3F4F6',
+              200: '#E5E7EB',
+              300: '#D1D5DB',
+              400: '#9CA3AF',
+              500: '#6B7280',
+              600: '#4B5563',
+              700: '#374151',
+              800: '#1F2937',
+              900: '#111827',
+            },
+            error: {
+              100: '#FEE2E2',
+              500: '#EF4444',
+              600: '#DC2626',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            hindi: ['Tiro Devanagari Hindi', 'serif']
+          },
+          animation: {
+            'spin-slow': 'spin 3s linear infinite',
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- GSAP for Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
+  <!-- Page specific script -->
+  <script src="js/events.js" defer></script>
+</head>
+
+<body class="min-h-screen bg-neutral-50 text-neutral-900 font-sans overflow-x-hidden">
+  <!-- Animated Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-40 h-40 bg-primary/10 rounded-full filter blur-xl" data-speed="0.3"></div>
+    <div class="absolute bottom-1/4 right-20 w-60 h-60 bg-primary/10 rounded-full filter blur-xl" data-speed="0.5">
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside
+    class="fixed inset-y-0 left-0 w-64 bg-white border-r border-neutral-200 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 shadow-sm"
+    id="sidebar">
+    <div class="flex flex-col h-full">
+      <!-- Logo -->
+      <div class="p-4 border-b border-neutral-200">
+        <div class="flex items-center space-x-2">
+          <img src="https://images.pexels.com/photos/1391487/pexels-photo-1391487.jpeg?auto=compress&cs=tinysrgb&w=200"
+            alt="Bharat Event Planner logo" class="h-10 rounded-lg">
+          <span class="text-2xl font-bold text-primary">Evenera</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <!-- Sidebar -->
+      <aside
+        class="fixed inset-y-0 left-0 w-64 bg-white border-r border-neutral-200 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 shadow-sm"
+        id="sidebar">
+        <div class="flex flex-col h-full">
+          <!-- Logo -->
+          <div class="p-4 border-b border-neutral-200">
+            <div class="flex items-center space-x-2">
+              <img
+                src="https://images.pexels.com/photos/1391487/pexels-photo-1391487.jpeg?auto=compress&cs=tinysrgb&w=200"
+                alt="Bharat Event Planner logo" class="h-10 rounded-lg">
+              <span class="text-2xl font-bold text-primary">Evenera</span>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <nav class="flex-1 p-4 space-y-2">
+            <a href="/F&B1/dashboard.php"
+              class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors bg-primary/10 text-primary">
+              <i class="fas fa-home w-6"></i>
+              <span>Dashboard</span>
+            </a>
+            <a href="/F&B1/tasks.php"
+              class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+              <i class="fas fa-tasks w-6"></i>
+              <span>Tasks</span>
+            </a>
+            <a href="/F&B1/events.php"
+              class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+              <i class="fas fa-calendar-alt w-6"></i>
+              <span>Events</span>
+            </a>
+            <a href="/F&B1/template.php"
+              class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+              <i class="fas fa-file-alt w-6"></i>
+              <span>Templates</span>
+            </a>
+            <a href="/F&B1/shopping.php"
+              class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+              <i class="fas fa-store w-6"></i>
+              <span>Shopping</span>
+            </a>
+            <!-- Profile Link (New) -->
+            <a href="/F&B1/profile.php"
+              class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+              <i class="fas fa-user w-6"></i>
+              <span>Profile</span>
+            </a>
+          </nav>
+
+          <!-- Upcoming Events Section -->
+          <div class="p-4 border-t border-neutral-200">
+            <h3 class="font-medium text-neutral-900 mb-3">Upcoming Events</h3>
+            <div id="sidebar-upcoming-events" class="space-y-3">
+              <!-- Upcoming events will be dynamically inserted here -->
+            </div>
+            <a href="events.html" class="text-sm text-primary hover:text-primary-hover flex items-center">
+              <span>View All Events</span>
+              <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="md:ml-64 min-h-screen">
+        <!-- Top Navigation -->
+        <header class="sticky top-0 z-40 bg-white border-b border-neutral-200 shadow-sm">
+          <div class="flex items-center justify-between px-6 py-4">
+            <div class="flex items-center space-x-4">
+              <button id="mobile-menu-button" class="md:hidden text-neutral-600 hover:text-primary">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+              <h1 class="text-2xl font-bold text-primary">My Events</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button id="create-event-btn"
+                class="bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-sm flex items-center space-x-2 transition-colors shadow-sm">
+                <i class="fas fa-plus"></i>
+                <span>Add Event</span>
+              </button>
+              <!-- Profile Button -->
+              <div class="relative group">
+                <button class="flex items-center space-x-2 px-4 py-2 rounded-sm hover:bg-neutral-100 transition-colors">
+                  <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <i class="fas fa-user text-primary"></i>
+                  </div>
+                  <span class="text-neutral-700">John Doe</span>
+                  <i class="fas fa-chevron-down text-sm text-neutral-500"></i>
+                </button>
+                <!-- Dropdown Menu -->
+                <div
+                  class="absolute right-0 mt-2 w-48 bg-white border border-neutral-200 rounded-sm shadow-lg py-2 hidden group-hover:block">
+                  <div class="px-4 py-2 border-b border-neutral-200">
+                    <p class="font-medium text-neutral-900">John Doe</p>
+                    <p class="text-sm text-neutral-500">john.doe@example.com</p>
+                  </div>
+                  <a href="index.html"
+                    class="block px-4 py-2 hover:bg-primary hover:text-white transition-colors text-neutral-700">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="p-6">
+          <!-- Upcoming Events Section -->
+          <div class="mb-6">
+            <h2 class="text-xl font-semibold text-neutral-900 mb-4">Upcoming Events (Next 30 Days)</h2>
+            <div id="upcoming-events" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Upcoming events will be dynamically inserted here -->
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="mb-6">
+            <!-- Filter Tags -->
+            <div id="filterTags" class="mb-4"></div>
+
+            <div class="flex flex-wrap gap-4">
+              <!-- Search -->
+              <div class="flex-1 min-w-[200px]">
+                <input type="text" id="searchInput" placeholder="Search events..."
+                  class="w-full bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm">
+              </div>
+
+              <!-- Category Filter -->
+              <select id="categoryFilter"
+                class="bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm">
+                <option value="">All Categories</option>
+                <option value="wedding">Wedding</option>
+                <option value="corporate">Corporate</option>
+                <option value="birthday">Birthday</option>
+                <option value="festival">Festival</option>
+                <option value="social">Social</option>
+                <option value="other">Other</option>
+              </select>
+
+              <!-- Status Filter -->
+              <select id="statusFilter"
+                class="bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm">
+                <option value="">All Status</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+              </select>
+
+              <!-- Sort Options -->
+              <select id="sortFilter"
+                class="bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm">
+                <option value="date-asc">Sort by Date (Asc)</option>
+                <option value="date-desc">Sort by Date (Desc)</option>
+                <option value="category">Sort by Category</option>
+                <option value="budget-asc">Sort by Budget (Asc)</option>
+                <option value="budget-desc">Sort by Budget (Desc)</option>
+              </select>
+
+              <!-- Date Range Filters -->
+              <div class="flex gap-2">
+                <input type="date" id="dateStartFilter"
+                  class="bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm"
+                  placeholder="Start Date">
+                <input type="date" id="dateEndFilter"
+                  class="bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm"
+                  placeholder="End Date">
+              </div>
+            </div>
+          </div>
+
+          <!-- Events Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="events-grid">
+            <!-- Events will be dynamically inserted here -->
+          </div>
+
+          <!-- Create/Edit Event Modal -->
+          <div id="create-event-modal" class="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm hidden">
+            <div
+              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white rounded-lg shadow-xl p-6">
+              <div class="flex justify-between items-center mb-4">
+                <h2 id="modal-title" class="text-xl font-semibold text-neutral-900">Create Event</h2>
+                <button id="close-modal" class="text-neutral-500 hover:text-neutral-700">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+
+              <form id="event-form" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-neutral-700 mb-1">Title</label>
+                  <input type="text" id="event-title" placeholder="Enter event title"
+                    class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-neutral-700 mb-1">Description</label>
+                  <textarea id="event-description" rows="3" placeholder="Enter event description"
+                    class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-neutral-700 mb-1">Date</label>
+                    <input type="date" id="event-date"
+                      class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-neutral-700 mb-1">Category</label>
+                    <select id="event-category"
+                      class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                      <option value="">Select Category</option>
+                      <option value="wedding">Wedding</option>
+                      <option value="festival">Festival</option>
+                      <option value="corporate">Corporate</option>
+                      <option value="birthday">Birthday</option>
+                      <option value="social">Social</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-neutral-700 mb-1">Venue</label>
+                    <input type="text" id="event-venue" placeholder="Enter venue"
+                      class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-neutral-700 mb-1">Budget (₹)</label>
+                    <input type="number" id="event-budget" placeholder="Enter budget"
+                      class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                  </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 mt-6">
+                  <button type="button" id="cancel-event"
+                    class="px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded-md">
+                    Cancel
+                  </button>
+                  <button type="submit"
+                    class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-hover rounded-md">
+                    Save Event
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="loading-overlay" class="fixed inset-0 bg-neutral-900/95 flex items-center justify-center z-50 hidden">
+        <div class="text-center">
+          <div
+            class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin-slow mx-auto mb-4">
+          </div>
+          <p class="text-white text-lg">Loading...</p>
+        </div>
+      </div>
+</body>
+
+</html>

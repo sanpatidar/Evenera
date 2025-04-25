@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management - Bharat Event Planner</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563EB',
+            'primary-hover': '#1D4ED8',
+            secondary: '#059669',
+            'secondary-hover': '#047857',
+            accent: '#F59E0B',
+            'accent-hover': '#D97706',
+            neutral: {
+              50: '#F9FAFB',
+              100: '#F3F4F6',
+              200: '#E5E7EB',
+              300: '#D1D5DB',
+              400: '#9CA3AF',
+              500: '#6B7280',
+              600: '#4B5563',
+              700: '#374151',
+              800: '#1F2937',
+              900: '#111827',
+            },
+            error: {
+              100: '#FEE2E2',
+              500: '#EF4444',
+              600: '#DC2626',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            hindi: ['Tiro Devanagari Hindi', 'serif']
+          },
+          animation: {
+            'spin-slow': 'spin 3s linear infinite',
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
+  <!-- Page specific script -->
+  <script src="js/tasks.js" defer></script>
+</head>
+
+<body class="min-h-screen bg-neutral-50 text-neutral-900 font-sans overflow-x-hidden">
+  <!-- Animated Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-40 h-40 bg-primary/10 rounded-full filter blur-xl" data-speed="0.3"></div>
+    <div class="absolute bottom-1/4 right-20 w-60 h-60 bg-primary/10 rounded-full filter blur-xl" data-speed="0.5">
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside
+    class="fixed inset-y-0 left-0 w-64 bg-white border-r border-neutral-200 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50 shadow-sm"
+    id="sidebar">
+    <div class="flex flex-col h-full">
+      <!-- Logo -->
+      <div class="p-4 border-b border-neutral-200">
+        <div class="flex items-center space-x-2">
+          <img src="https://images.pexels.com/photos/1391487/pexels-photo-1391487.jpeg?auto=compress&cs=tinysrgb&w=200"
+            alt="Bharat Event Planner logo" class="h-10 rounded-lg">
+          <span class="text-2xl font-bold text-primary">Evenera</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 p-4 space-y-2">
+        <a href="/F&B1/dashboard.php"
+          class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors bg-primary/10 text-primary">
+          <i class="fas fa-home w-6"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/F&B1/tasks.php"
+          class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+          <i class="fas fa-tasks w-6"></i>
+          <span>Tasks</span>
+        </a>
+        <a href="/F&B1/events.php"
+          class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+          <i class="fas fa-calendar-alt w-6"></i>
+          <span>Events</span>
+        </a>
+        <a href="/F&B1/template.php"
+          class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+          <i class="fas fa-file-alt w-6"></i>
+          <span>Templates</span>
+        </a>
+        <a href="/F&B1/shopping.php"
+          class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+          <i class="fas fa-store w-6"></i>
+          <span>Shopping</span>
+        </a>
+        <!-- Profile Link (New) -->
+        <a href="/F&B1/profile.php"
+          class="flex items-center space-x-3 px-4 py-3 rounded-sm transition-colors hover:bg-neutral-100 text-neutral-600 hover:text-primary">
+          <i class="fas fa-user w-6"></i>
+          <span>Profile</span>
+        </a>
+      </nav>
+
+      <!-- Upcoming Events Section -->
+      <div class="p-4 border-t border-neutral-200">
+        <h3 class="font-medium text-neutral-900 mb-3">Upcoming Events</h3>
+        <div class="space-y-3">
+          <div class="bg-neutral-50 p-3 rounded-sm">
+            <p class="font-medium text-neutral-800">Diwali Celebration</p>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-sm text-neutral-500"><i class="fas fa-calendar-alt mr-1"></i> Nov 5, 2025</span>
+              <span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full">In 3 days</span>
+            </div>
+          </div>
+          <div class="bg-neutral-50 p-3 rounded-sm">
+            <p class="font-medium text-neutral-800">Sikh Wedding</p>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-sm text-neutral-500"><i class="fas fa-calendar-alt mr-1"></i> Nov 12, 2025</span>
+              <span class="text-xs px-2 py-1 bg-accent/10 text-accent rounded-full">In 10 days</span>
+            </div>
+          </div>
+          <a href="events.html" class="text-sm text-primary hover:text-primary-hover flex items-center">
+            <span>View All Events</span>
+            <i class="fas fa-arrow-right ml-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="md:ml-64 min-h-screen">
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-40 bg-white border-b border-neutral-200 shadow-sm">
+      <div class="flex items-center justify-between px-6 py-4">
+        <div class="flex items-center space-x-4">
+          <button id="mobile-menu-button" class="md:hidden text-neutral-600 hover:text-primary">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+          <h1 class="text-2xl font-bold text-primary">Task Management</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button id="create-task-btn"
+            class="bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-sm flex items-center space-x-2 transition-colors shadow-sm">
+            <i class="fas fa-plus"></i>
+            <span>New Task</span>
+          </button>
+          <!-- Profile Button -->
+          <div class="relative group">
+            <button class="flex items-center space-x-2 px-4 py-2 rounded-sm hover:bg-neutral-100 transition-colors">
+              <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                <i class="fas fa-user text-primary"></i>
+              </div>
+              <span class="text-neutral-700">John Doe</span>
+              <i class="fas fa-chevron-down text-sm text-neutral-500"></i>
+            </button>
+            <!-- Dropdown Menu -->
+            <div
+              class="absolute right-0 mt-2 w-48 bg-white border border-neutral-200 rounded-sm shadow-lg py-2 hidden group-hover:block">
+              <div class="px-4 py-2 border-b border-neutral-200">
+                <p class="font-medium text-neutral-900">John Doe</p>
+                <p class="text-sm text-neutral-500">john.doe@example.com</p>
+              </div>
+              <a href="index.html"
+                class="block px-4 py-2 hover:bg-primary hover:text-white transition-colors text-neutral-700">
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Task Management Interface -->
+    <div class="p-6">
+      <!-- Task Filters and Controls -->
+      <div class="mb-6 flex flex-wrap gap-4">
+        <div class="flex-1 min-w-[200px]">
+          <select id="task-filter"
+            class="w-full bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="all">All Tasks</option>
+            <option value="incomplete">Incomplete</option>
+            <option value="completed">Completed</option>
+            <option value="high-priority">High Priority</option>
+          </select>
+        </div>
+        <div class="flex-1 min-w-[200px]">
+          <select id="task-sort"
+            class="w-full bg-white border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="deadline">Sort by Deadline</option>
+            <option value="priority">Sort by Priority</option>
+            <option value="progress">Sort by Progress</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Task Statistics -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div class="bg-white border border-neutral-200 rounded-sm p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-neutral-500">Total Tasks</p>
+              <h3 class="text-2xl font-bold text-neutral-900" data-stat="total-tasks">0</h3>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <i class="fas fa-tasks text-primary"></i>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-neutral-200 rounded-sm p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-neutral-500">Completed Tasks</p>
+              <h3 class="text-2xl font-bold text-neutral-900" data-stat="completed-tasks">0</h3>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+              <i class="fas fa-check text-secondary"></i>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-neutral-200 rounded-sm p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-neutral-500">High Priority</p>
+              <h3 class="text-2xl font-bold text-neutral-900" data-stat="high-priority-tasks">0</h3>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-error-100 flex items-center justify-center">
+              <i class="fas fa-exclamation-triangle text-error-600"></i>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white border border-neutral-200 rounded-sm p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-neutral-500">Upcoming Deadlines</p>
+              <h3 class="text-2xl font-bold text-neutral-900" data-stat="upcoming-deadlines">0</h3>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+              <i class="fas fa-clock text-accent"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task List -->
+      <div class="bg-white border border-neutral-200 rounded-sm shadow-sm mb-6">
+        <div class="p-6 border-b border-neutral-200">
+          <h2 class="text-xl font-semibold text-neutral-900">Tasks</h2>
+        </div>
+        <div class="p-6">
+          <div class="task-list space-y-4">
+            <!-- Tasks will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Reminders -->
+      <div class="bg-white border border-neutral-200 rounded-sm shadow-sm">
+        <div class="p-6 border-b border-neutral-200">
+          <h2 class="text-xl font-semibold text-neutral-900">Upcoming Reminders</h2>
+        </div>
+        <div class="p-6">
+          <div id="reminders-list" class="space-y-4">
+            <!-- Reminders will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Task Modal -->
+  <div id="task-modal" class="fixed inset-0 bg-neutral-900/95 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-sm w-full max-w-2xl p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h2 id="modal-title" class="text-xl font-semibold text-neutral-900">Create Task</h2>
+        <button id="modal-close" class="text-neutral-500 hover:text-neutral-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="task-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1 text-neutral-700">Title</label>
+          <input type="text" id="task-title" placeholder="Enter task title"
+            class="w-full bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1 text-neutral-700">Description</label>
+          <textarea id="task-description" placeholder="Enter task description" rows="3"
+            class="w-full bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1 text-neutral-700">Deadline</label>
+            <input type="date" id="task-deadline"
+              class="w-full bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1 text-neutral-700">Priority</label>
+            <select id="task-priority"
+              class="w-full bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1 text-neutral-700">Category</label>
+          <select id="task-category"
+            class="w-full bg-neutral-50 border border-neutral-200 rounded-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="">Select Category</option>
+            <option value="venue">Venue</option>
+            <option value="catering">Catering</option>
+            <option value="decoration">Decoration</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="photography">Photography</option>
+            <option value="guest-management">Guest Management</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="flex justify-end space-x-4">
+          <button type="button" id="cancel-task-btn"
+            class="px-4 py-2 border border-neutral-200 rounded-sm text-neutral-700 hover:bg-neutral-100 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" id="save-task-btn"
+            class="px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-sm transition-colors">
+            Save Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-neutral-900/95 flex items-center justify-center z-50 hidden">
+    <div class="text-center">
+      <div class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin-slow mx-auto mb-4">
+      </div>
+      <p class="text-white text-lg">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Initialize GSAP Animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Animate statistics cards
+      gsap.from('.bg-white', {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: 'main',
+          start: 'top 80%'
+        }
+      });
+
+      // Animate task items
+      gsap.from('.task-item', {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.task-list',
+          start: 'top 80%'
+        }
+      });
+
+      // Animate filter controls
+      gsap.from('#task-filter, #task-sort', {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.mb-6',
+          start: 'top 80%'
+        }
+      });
+
+      // Animate reminders
+      gsap.from('#reminders-list > div', {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '#reminders-list',
+          start: 'top 80%'
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
